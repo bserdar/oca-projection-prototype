@@ -1,0 +1,62 @@
+{
+    "project": [
+        {
+            "source": "$.entry[?(@.resourceType==\"Immunization\")].id",
+            "target": "vax_event_id"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].name[0].given[0]",
+            "target": "recip_first_name"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].name[0].given[1]",
+            "target": "recip_middle_name"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].name[0].family",
+            "target": "recip_last_name"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].birthDate",
+            "target": "recip_dob"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].gender",
+            "target": "recip_sex"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].address[0].line[0]",
+            "target": "recip_address_street"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].address[0].city",
+            "target": "recip_address_city"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].address[0].state",
+            "target": "recip_address_state"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Patient\")].address[0].country",
+            "target": "recip_address_country"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Immunization\")].occurrenceDateTime",
+            "target": "admin_date"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Immunization\")].vaccineCode.coding[*].code",
+            "target": "admin_cvx",
+            "array":true
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Immunization\")].manufacturer",
+            "target": "mvx"
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Immunization\")].lotNumber",
+            "target": "lot_number"
+        }   
+        
+    ]
+}
