@@ -11,12 +11,12 @@ import (
 )
 
 type ProjectionOverlay struct {
-	Project []ProjectionRule `json:"project"`
+	Project []ProjectionRule `json:"attributes"`
 }
 
 type ProjectionRule struct {
-	Source string      `json:"source"`
-	Target string      `json:"target"`
+	Source string      `json:"jsonPath"`
+	Target string      `json:"key"`
 	Const  interface{} `json:"const"`
 	Array  bool        `json:"array"`
 	Env    string      `json:"env"`

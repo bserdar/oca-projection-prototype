@@ -1,69 +1,69 @@
 {
-    "project": [
+    "attributes": [
         {
             "const": "http://projection-test",
-            "target": "@vocab"
+            "key": "@vocab"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Immunization\")].id",
-            "target": "vax_event_id"
+            "jsonPath": "$.entry[?(@.resourceType==\"Immunization\")].id",
+            "key": "vax_event_id"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].name[0].given[0]",
-            "target": "recip_first_name"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].name[0].given[0]",
+            "key": "recip_first_name"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].name[0].given[1]",
-            "target": "recip_middle_name"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].name[0].given[1]",
+            "key": "recip_middle_name"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].name[0].family",
-            "target": "recip_last_name"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].name[0].family",
+            "key": "recip_last_name"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].birthDate",
-            "target": "recip_dob"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].birthDate",
+            "key": "recip_dob"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].gender",
-            "target": "recip_sex"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].gender",
+            "key": "recip_sex"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].address[0].line[0]",
-            "target": "recip_address_street"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].address[0].line[0]",
+            "key": "recip_address_street"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].address[0].city",
-            "target": "recip_address_city"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].address[0].city",
+            "key": "recip_address_city"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].address[0].state",
-            "target": "recip_address_state"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].address[0].state",
+            "key": "recip_address_state"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Patient\")].address[0].country",
-            "target": "recip_address_country"
+            "jsonPath": "$.entry[?(@.resourceType==\"Patient\")].address[0].country",
+            "key": "recip_address_country"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Immunization\")].occurrenceDateTime",
-            "target": "admin_date"
+            "jsonPath": "$.entry[?(@.resourceType==\"Immunization\")].occurrenceDateTime",
+            "key": "admin_date"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Immunization\")].vaccineCode.coding[*].code",
-            "target": "admin_cvx",
+            "jsonPath": "$.entry[?(@.resourceType==\"Immunization\")].vaccineCode.coding[*].code",
+            "key": "admin_cvx",
             "array":true
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Immunization\")].manufacturer",
-            "target": "mvx"
+            "jsonPath": "$.entry[?(@.resourceType==\"Immunization\")].manufacturer",
+            "key": "mvx"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Immunization\")].lotNumber",
-            "target": "lot_number"
+            "jsonPath": "$.entry[?(@.resourceType==\"Immunization\")].lotNumber",
+            "key": "lot_number"
         },
         {
-            "source": "$.entry[?(@.resourceType==\"Immunization\")].performer[0].actor.reference",
-            "env": "%performer"
+            "jsonPath": "$.entry[?(@.resourceType==\"Practitioner\")].name",
+            "key": "admin_name"
         }
         
     ]
