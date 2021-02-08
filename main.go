@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
-	//"github.com/PaesslerAG/gval"
 	"github.com/PaesslerAG/jsonpath"
 )
 
@@ -15,21 +15,35 @@ type ProjectionOverlay struct {
 }
 
 type ProjectionRule struct {
-	Source string `json:"source"`
-	Target string `json:"target"`
-	Array  bool   `json:"array"`
+	Source string      `json:"source"`
+	Target string      `json:"target"`
+	Const  interface{} `json:"const"`
+	Array  bool        `json:"array"`
+	Env    string      `json:"env"`
 }
 
-func (p ProjectionRule) process(input interface{}, output map[string]interface{}) error {
-	data, err := jsonpath.Get(p.Source, input)
+func (p ProjectionRule) process(input interface{}, output map[string]interface{}, env map[string]string) error {
+	if p.Const != nil {
+		output[p.Target] = p.Const
+		return nil
+	}
+
+	source := p.Source
+	for k, v := range env {
+		source = strings.ReplaceAll(source, k, v)
+	}
+	fmt.Println(source)
+	data, err := jsonpath.Get(source, input)
 	if err != nil {
 		fmt.Println(err)
 	}
 	if err != nil || data == nil {
 		return nil
 	}
-	if _, ok := output[p.Target]; ok {
-		return fmt.Errorf("Key %s already populated", p.Target)
+	if len(p.Target) > 0 {
+		if _, ok := output[p.Target]; ok {
+			return fmt.Errorf("Key %s already populated", p.Target)
+		}
 	}
 	if arr, ok := data.([]interface{}); ok {
 		if !p.Array {
@@ -42,7 +56,10 @@ func (p ProjectionRule) process(input interface{}, output map[string]interface{}
 			}
 		}
 	}
-	if data != nil {
+	if len(p.Env) > 0 {
+		env[p.Env] = fmt.Sprint(data)
+	}
+	if data != nil && len(p.Target) > 0 {
 		output[p.Target] = data
 	}
 	return nil
@@ -71,8 +88,9 @@ func main() {
 		panic(err)
 	}
 	output := make(map[string]interface{})
+	env := map[string]string{}
 	for _, x := range projection.Project {
-		if err := x.process(input, output); err != nil {
+		if err := x.process(input, output, env); err != nil {
 			panic(err)
 		}
 	}

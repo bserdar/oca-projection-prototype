@@ -1,6 +1,10 @@
 {
     "project": [
         {
+            "const": "http://projection-test",
+            "target": "@vocab"
+        },
+        {
             "source": "$.entry[?(@.resourceType==\"Immunization\")].id",
             "target": "vax_event_id"
         },
@@ -56,7 +60,11 @@
         {
             "source": "$.entry[?(@.resourceType==\"Immunization\")].lotNumber",
             "target": "lot_number"
-        }   
+        },
+        {
+            "source": "$.entry[?(@.resourceType==\"Immunization\")].performer[0].actor.reference",
+            "env": "%performer"
+        }
         
     ]
 }
